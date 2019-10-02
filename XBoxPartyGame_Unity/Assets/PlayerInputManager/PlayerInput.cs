@@ -19,9 +19,9 @@ public class PlayerInput : IInputActionCollection
             ""actions"": [
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""d5fe36c8-8264-4d88-a162-fcad56d78fd1"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
