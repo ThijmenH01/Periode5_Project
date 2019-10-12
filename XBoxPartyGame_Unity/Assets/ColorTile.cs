@@ -7,11 +7,7 @@ public class ColorTile : MonoBehaviour {
     public string color;
     public string text;
 
-    void Start(){
-        
-    }
-
     void Update(){
-        transform.rotation = Quaternion.Euler( 0 , 0 , 0 );
+        transform.rotation = Quaternion.identity;
     }
 }

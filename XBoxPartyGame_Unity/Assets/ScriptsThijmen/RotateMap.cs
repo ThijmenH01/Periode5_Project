@@ -5,10 +5,6 @@ using UnityEngine;
 public class RotateMap : MonoBehaviour {
     [SerializeField] private float rotateSpeed;
 
-    void Start() {
-
-    }
-
     void Update() {
         Rotate();
     }
