@@ -19,7 +19,4 @@ public class TextTile : MonoBehaviour {
         tileText.text = colorTileParent.text; // Sets the text on the tile to the text given from the script on the tile.
         tileText.color = new Color( Mathf.Abs( r - 1f ) , Mathf.Abs( g - 1f ) , Mathf.Abs( b - 1f ) );
     }
-
-    void Update() {
-    }
 }
