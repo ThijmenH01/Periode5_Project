@@ -11,7 +11,8 @@ public class Player : MonoBehaviour {
         text
     }
 
-    [SerializeField] private TargetState targetState;
+    public TargetState targetState;
+
     [SerializeField] private float moveSpeed = 7.5f;
     [SerializeField] private float smoothMoveTime = 0.1f;
     [SerializeField] private float turnSpeed = 8;
@@ -24,13 +25,9 @@ public class Player : MonoBehaviour {
     private Vector2 moveInput;
     private ColorTile colorTile;
 
-    void Start() {
-        targetState = TargetState.color;
-    }
 
     private void Update() {
-        if(Input.GetKeyDown( KeyCode.LeftArrow )) targetState = TargetState.color;
-        if(Input.GetKeyDown(KeyCode.RightArrow)) targetState = TargetState.text;
+
     }
 
     #region Movement
@@ -75,5 +72,10 @@ public class Player : MonoBehaviour {
             colorTile = col.GetComponent<ColorTile>();
             TargetStateBehavior();
         }
+    }
+
+    public void GivePlayerTarget() {
+        int playerTargetEnumInt = Random.Range( 0 , 2 );
+        targetState = (TargetState)playerTargetEnumInt;
     }
 }
