@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private float moveSpeed = 7.5f;
     [SerializeField] private float smoothMoveTime = 0.1f;
     [SerializeField] private float turnSpeed = 8;
+    [SerializeField] private Transform spawnPoint;
     [SerializeField] private Rigidbody rb;
 
     private float angle;
@@ -27,7 +28,9 @@ public class Player : MonoBehaviour {
 
 
     private void Update() {
-
+        if(transform.position.y < -15) {
+            ResetPosition();
+        }
     }
 
     #region Movement
@@ -77,5 +80,9 @@ public class Player : MonoBehaviour {
     public void GivePlayerTarget() {
         int playerTargetEnumInt = Random.Range( 0 , 2 );
         targetState = (TargetState)playerTargetEnumInt;
+    }
+
+    private void ResetPosition() {
+        transform.position = spawnPoint.position;
     }
 }
