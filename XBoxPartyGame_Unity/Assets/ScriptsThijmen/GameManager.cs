@@ -7,35 +7,23 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance;
 
     public int m_playerAmountChosen;
-    public Player[] players;
 
     private void Awake() {
-        if(instance == null)
-        {
+        if(instance == null) {
             instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
+        } else {
+            Destroy( gameObject );
         }
     }
 
 
     private void Start() {
-        players = new Player[m_playerAmountChosen];
+        //players = new Player[m_playerAmountChosen];
         DontDestroyOnLoad( this );
-        LoopTroughPlayers();
     }
 
-    public void SetPlayerCount(int playersFromSlider)
-    {
+    public void SetPlayerCount(int playersFromSlider) {
         m_playerAmountChosen = playersFromSlider;
-        players = new Player[m_playerAmountChosen];
-    }
-
-    private void LoopTroughPlayers() {
-        for(int i = 0; i < players.Length; i++) {
-            players[i].GivePlayerTarget();
-        }
+        //players = new Player[m_playerAmountChosen];
     }
 }
