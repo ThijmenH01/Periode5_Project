@@ -6,16 +6,31 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
 
-    public int playerAmountActive;
+    public int m_playerAmountChosen;
     public Player[] players;
 
     private void Awake() {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
+
     private void Start() {
+        players = new Player[m_playerAmountChosen];
         DontDestroyOnLoad( this );
         LoopTroughPlayers();
+    }
+
+    public void SetPlayerCount(int playersFromSlider)
+    {
+        m_playerAmountChosen = playersFromSlider;
+        players = new Player[m_playerAmountChosen];
     }
 
     private void LoopTroughPlayers() {
