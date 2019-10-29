@@ -27,7 +27,7 @@ public class Player : MonoBehaviour {
     private bool disabled;
     private Vector2 moveInput;
     private ColorTile colorTile;
-    private GameObject m_Target;
+    [SerializeField] private GameObject m_Target;
     private string targetColorText;
 
 
@@ -70,7 +70,7 @@ public class Player : MonoBehaviour {
     #endregion
 
     private void TargetStateBehavior() {
-        m_Target = GameManager.instance.tiles[Random.Range( 0 , GameManager.instance.tiles.Length - 1 )];
+        m_Target = MiniGameManager.instance.tiles[Random.Range( 0 , MiniGameManager.instance.tiles.Length )];
         targetColorText = m_Target.GetComponent<ColorTile>().text;
 
         if(targetState == TargetState.color) {

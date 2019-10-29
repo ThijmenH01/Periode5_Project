@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance;
 
     public int m_playerAmountChosen;
-    public GameObject[] tiles;
 
     private void Awake() {
         if(instance == null) {

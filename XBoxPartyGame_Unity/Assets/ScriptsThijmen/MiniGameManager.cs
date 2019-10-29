@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MiniGameManager : MonoBehaviour {
+    public static MiniGameManager instance;
 
     int playerCount;
     public Player[] players;
+    public GameObject[] tiles;
 
     private void Awake() {
-        
+        instance = this;
     }
 
-    void Start(){
+    void Start() {
         for(int i = 0; i < players.Length; i++) {
             if(i < GameManager.instance.m_playerAmountChosen) {
                 players[i].gameObject.SetActive( true );
@@ -23,8 +25,8 @@ public class MiniGameManager : MonoBehaviour {
         LoopTroughPlayers();
     }
 
-    void Update(){
-        
+    void Update() {
+
     }
 
     private void LoopTroughPlayers() {
