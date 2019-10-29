@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.InputSystem;
 
 [RequireComponent( typeof( Rigidbody ) )]
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private float turnSpeed = 8;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private TextMeshProUGUI targetText;
 
     private float angle;
     private float smoothInputMagnitude;
@@ -25,6 +27,13 @@ public class Player : MonoBehaviour {
     private bool disabled;
     private Vector2 moveInput;
     private ColorTile colorTile;
+    private GameObject m_Target;
+    private string targetColorText;
+
+
+    private void Start() {
+        TargetStateBehavior();
+    }
 
 
     private void Update() {
@@ -61,24 +70,59 @@ public class Player : MonoBehaviour {
     #endregion
 
     private void TargetStateBehavior() {
+        m_Target = GameManager.instance.tiles[Random.Range( 0 , GameManager.instance.tiles.Length - 1 )];
+        targetColorText = m_Target.GetComponent<ColorTile>().text;
+
         if(targetState == TargetState.color) {
-            print( "Actual Color: " + colorTile.color );
+            targetText.text = "Color";
+            targetText.color = m_Target.GetComponent<Renderer>().material.color;
         }
 
         if(targetState == TargetState.text) {
-            print( "Text Color: " + colorTile.text );
+            targetText.text = "Text";
+
+            if(targetColorText == "ORANGE") {
+                targetText.color = new Color( 255 , 165 , 0 );
+            }
+
+            if(targetColorText == "PURPLE") {
+                targetText.color = new Color( 48 , 25 , 52 );
+            }
+
+            if(targetColorText == "PINK") {
+                targetText.color = new Color( 228 , 114 , 186 );
+            }
+
+            if(targetColorText == "YELLOW") {
+                targetText.color = Color.yellow;
+            }
+
+            if(targetColorText == "BLUE") {
+                targetText.color = Color.blue;
+            }
+
+            if(targetColorText == "GREEN") {
+                targetText.color = Color.green;
+            }
         }
     }
+
 
     private void OnTriggerEnter(Collider col) {
         if(col.gameObject.tag == "Tile") {
             colorTile = col.GetComponent<ColorTile>();
-            TargetStateBehavior();
+            if(colorTile.color == m_Target.GetComponent<ColorTile>().color || targetColorText == colorTile.text) {
+                GivePlayerTarget();
+                TargetStateBehavior();
+            }
+            print( col.name );
         }
     }
 
     public void GivePlayerTarget() {
         int playerTargetEnumInt = Random.Range( 0 , 2 );
+        if(Input.GetKeyDown( KeyCode.Space ))
+            print( playerTargetEnumInt );
         targetState = (TargetState)playerTargetEnumInt;
     }
 

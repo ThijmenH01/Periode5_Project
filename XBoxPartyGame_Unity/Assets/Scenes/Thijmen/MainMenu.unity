@@ -1083,8 +1083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d4a25d65276054f8e39399012a843d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerAmountChosen: 4
-  players: []
+  m_playerAmountChosen: 1
 --- !u!4 &612206015
 Transform:
   m_ObjectHideFlags: 0
