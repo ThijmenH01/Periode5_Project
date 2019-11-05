@@ -39,6 +39,6 @@ public class GameManager : MonoBehaviour {
     {
         print("Resrtarted");
         Time.timeScale = 1;
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 }

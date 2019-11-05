@@ -17,26 +17,28 @@ public class Player : MonoBehaviour {
     [SerializeField] private float moveSpeed = 7.5f;
     [SerializeField] private float smoothMoveTime = 0.1f;
     [SerializeField] private float turnSpeed = 8;
+    [SerializeField] private float sprintSpeed;
     [SerializeField] private int playerScore = 0;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private TextMeshProUGUI targetText;
     [SerializeField] private TextMeshProUGUI playerScoreText;
     [SerializeField] private GameObject m_Target;
-    
+
     private float angle;
     private float smoothInputMagnitude;
     private float smoothMoveVelocity;
     private bool disabled;
     private Vector2 moveInput;
     private ColorTile colorTile;
-    
+
     private string targetColorText;
 
 
     private void Start() {
         TargetStateBehavior();
         playerScore--;
+        SetUIActive();
     }
 
 
@@ -44,13 +46,16 @@ public class Player : MonoBehaviour {
         if(transform.position.y < -15) {
             ResetPosition();
         }
+
+        if(Input.GetKeyDown( KeyCode.Joystick1Button0 )) {
+            //Make Sprint
+        }
     }
 
     #region Movement
     private void FixedUpdate() {
         rb.MoveRotation( Quaternion.Euler( Vector3.up * angle ) );
         Move();
-        //transform.position = new Vector3( transform.position.x , Mathf.Sin( Time.time * 5 ) / 2 + 2 , transform.position.z );
     }
 
     public void OnMovement(InputAction.CallbackContext context) {
@@ -74,45 +79,45 @@ public class Player : MonoBehaviour {
     #endregion
 
     private void TargetStateBehavior() {
-        m_Target = MiniGameManager.instance.tiles[Random.Range( 0 , MiniGameManager.instance.tiles.Length)];
+        m_Target = MiniGameManager.instance.tiles[Random.Range( 0 , MiniGameManager.instance.tiles.Length )];
         targetColorText = m_Target.GetComponent<ColorTile>().text;
 
         if(targetState == TargetState.color) {
             targetText.text = "Color";
             targetText.color = m_Target.GetComponent<Renderer>().material.color;
-            AddScore(1);
+            AddScore( 1 );
         }
 
         if(targetState == TargetState.text) {
             targetText.text = "Text";
             if(targetColorText == "CYAN") {
                 targetText.color = Color.cyan;
-                AddScore(1);
+                AddScore( 1 );
             }
 
             if(targetColorText == "RED") {
                 targetText.color = Color.red;
-                AddScore(1);
+                AddScore( 1 );
             }
 
             if(targetColorText == "PINK") {
                 targetText.color = Color.magenta;
-                AddScore(1);
+                AddScore( 1 );
             }
 
             if(targetColorText == "YELLOW") {
                 targetText.color = Color.yellow;
-                AddScore(1);
+                AddScore( 1 );
             }
 
             if(targetColorText == "BLUE") {
                 targetText.color = Color.blue;
-                AddScore(1);
+                AddScore( 1 );
             }
 
             if(targetColorText == "GREEN") {
                 targetText.color = Color.green;
-                AddScore(1);
+                AddScore( 1 );
             }
             targetText.ForceMeshUpdate();
         }
@@ -137,10 +142,16 @@ public class Player : MonoBehaviour {
     private void ResetPosition() {
         transform.position = spawnPoint.position;
     }
-    
-    private void AddScore(int scoreAddon)
-    {
+
+    private void AddScore(int scoreAddon) {
         playerScore += scoreAddon;
         playerScoreText.text = playerScore.ToString();
+    }
+
+    private void SetUIActive() {
+        if(!gameObject.activeInHierarchy) {
+            targetText.enabled = false;
+            playerScoreText.enabled = false;
+        }
     }
 }
