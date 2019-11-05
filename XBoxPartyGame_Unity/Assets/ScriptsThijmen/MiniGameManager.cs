@@ -20,6 +20,7 @@ public class MiniGameManager : MonoBehaviour {
             } else {
                 players[i].gameObject.SetActive( false );
             }
+            players[i].DisableUI();
         }
         playerCount = GameManager.instance.m_playerAmountChosen;
         LoopTroughPlayers();

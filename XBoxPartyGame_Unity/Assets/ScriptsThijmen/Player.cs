@@ -31,16 +31,12 @@ public class Player : MonoBehaviour {
     private bool disabled;
     private Vector2 moveInput;
     private ColorTile colorTile;
-
     private string targetColorText;
-
 
     private void Start() {
         TargetStateBehavior();
-        playerScore--;
-        SetUIActive();
+        //SetUIActive();
     }
-
 
     private void Update() {
         if(transform.position.y < -15) {
@@ -148,10 +144,12 @@ public class Player : MonoBehaviour {
         playerScoreText.text = playerScore.ToString();
     }
 
-    private void SetUIActive() {
-        if(!gameObject.activeInHierarchy) {
+    public void DisableUI() {
+        if(!gameObject.activeSelf) {
             targetText.enabled = false;
             playerScoreText.enabled = false;
+            print( "disabled" );
         }
+        print( "entered function" );
     }
 }
