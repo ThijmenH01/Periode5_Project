@@ -25,10 +25,6 @@ public class MiniGameManager : MonoBehaviour {
         LoopTroughPlayers();
     }
 
-    void Update() {
-
-    }
-
     private void LoopTroughPlayers() {
         for(int i = 0; i < playerCount; i++) {
             players[i].GivePlayerTarget();

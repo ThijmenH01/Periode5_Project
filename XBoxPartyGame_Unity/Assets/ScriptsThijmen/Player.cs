@@ -22,14 +22,15 @@ public class Player : MonoBehaviour {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private TextMeshProUGUI targetText;
     [SerializeField] private TextMeshProUGUI playerScoreText;
-
+    [SerializeField] private GameObject m_Target;
+    
     private float angle;
     private float smoothInputMagnitude;
     private float smoothMoveVelocity;
     private bool disabled;
     private Vector2 moveInput;
     private ColorTile colorTile;
-    [SerializeField] private GameObject m_Target;
+    
     private string targetColorText;
 
 
@@ -73,7 +74,7 @@ public class Player : MonoBehaviour {
     #endregion
 
     private void TargetStateBehavior() {
-        m_Target = MiniGameManager.instance.tiles[Random.Range( 0 , MiniGameManager.instance.tiles.Length )];
+        m_Target = MiniGameManager.instance.tiles[Random.Range( 0 , MiniGameManager.instance.tiles.Length)];
         targetColorText = m_Target.GetComponent<ColorTile>().text;
 
         if(targetState == TargetState.color) {
@@ -84,19 +85,18 @@ public class Player : MonoBehaviour {
 
         if(targetState == TargetState.text) {
             targetText.text = "Text";
-
-            if(targetColorText == "ORANGE") {
-                targetText.color = new Color( 255 , 165 , 0 );
+            if(targetColorText == "CYAN") {
+                targetText.color = Color.cyan;
                 AddScore(1);
             }
 
-            if(targetColorText == "PURPLE") {
-                targetText.color = new Color( 48 , 25 , 52 );
+            if(targetColorText == "RED") {
+                targetText.color = Color.red;
                 AddScore(1);
             }
 
             if(targetColorText == "PINK") {
-                targetText.color = new Color( 228 , 114 , 186 );
+                targetText.color = Color.magenta;
                 AddScore(1);
             }
 
@@ -114,9 +114,9 @@ public class Player : MonoBehaviour {
                 targetText.color = Color.green;
                 AddScore(1);
             }
+            targetText.ForceMeshUpdate();
         }
     }
-
 
     private void OnTriggerEnter(Collider col) {
         if(col.gameObject.tag == "Tile") {

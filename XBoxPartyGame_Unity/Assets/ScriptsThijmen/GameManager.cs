@@ -23,20 +23,16 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Start() {
-        //players = new Player[m_playerAmountChosen];
         DontDestroyOnLoad( this );
     }
 
     public void SetPlayerCount(int playersFromSlider) {
         m_playerAmountChosen = playersFromSlider;
-        //players = new Player[m_playerAmountChosen];
     }
 
     public void GameOver()
     {
-        
-        Time.timeScale = 0.1f;
-       
+        Time.timeScale = 0f;
     }
 
     public void RestartGame()
