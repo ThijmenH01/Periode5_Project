@@ -17,9 +17,11 @@ public class Player : MonoBehaviour {
     [SerializeField] private float moveSpeed = 7.5f;
     [SerializeField] private float smoothMoveTime = 0.1f;
     [SerializeField] private float turnSpeed = 8;
+    [SerializeField] private int playerScore = 0;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private TextMeshProUGUI targetText;
+    [SerializeField] private TextMeshProUGUI playerScoreText;
 
     private float angle;
     private float smoothInputMagnitude;
@@ -33,6 +35,7 @@ public class Player : MonoBehaviour {
 
     private void Start() {
         TargetStateBehavior();
+        playerScore--;
     }
 
 
@@ -76,6 +79,7 @@ public class Player : MonoBehaviour {
         if(targetState == TargetState.color) {
             targetText.text = "Color";
             targetText.color = m_Target.GetComponent<Renderer>().material.color;
+            AddScore(1);
         }
 
         if(targetState == TargetState.text) {
@@ -83,26 +87,32 @@ public class Player : MonoBehaviour {
 
             if(targetColorText == "ORANGE") {
                 targetText.color = new Color( 255 , 165 , 0 );
+                AddScore(1);
             }
 
             if(targetColorText == "PURPLE") {
                 targetText.color = new Color( 48 , 25 , 52 );
+                AddScore(1);
             }
 
             if(targetColorText == "PINK") {
                 targetText.color = new Color( 228 , 114 , 186 );
+                AddScore(1);
             }
 
             if(targetColorText == "YELLOW") {
                 targetText.color = Color.yellow;
+                AddScore(1);
             }
 
             if(targetColorText == "BLUE") {
                 targetText.color = Color.blue;
+                AddScore(1);
             }
 
             if(targetColorText == "GREEN") {
                 targetText.color = Color.green;
+                AddScore(1);
             }
         }
     }
@@ -121,12 +131,16 @@ public class Player : MonoBehaviour {
 
     public void GivePlayerTarget() {
         int playerTargetEnumInt = Random.Range( 0 , 2 );
-        if(Input.GetKeyDown( KeyCode.Space ))
-            print( playerTargetEnumInt );
         targetState = (TargetState)playerTargetEnumInt;
     }
 
     private void ResetPosition() {
         transform.position = spawnPoint.position;
+    }
+    
+    private void AddScore(int scoreAddon)
+    {
+        playerScore += scoreAddon;
+        playerScoreText.text = playerScore.ToString();
     }
 }

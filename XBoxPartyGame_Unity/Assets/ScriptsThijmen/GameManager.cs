@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
-
+    
     public int m_playerAmountChosen;
 
     private void Awake() {
@@ -16,6 +17,10 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && Countdown.instance.stop) RestartGame();
+    }
 
     private void Start() {
         //players = new Player[m_playerAmountChosen];
@@ -25,5 +30,19 @@ public class GameManager : MonoBehaviour {
     public void SetPlayerCount(int playersFromSlider) {
         m_playerAmountChosen = playersFromSlider;
         //players = new Player[m_playerAmountChosen];
+    }
+
+    public void GameOver()
+    {
+        
+        Time.timeScale = 0.1f;
+       
+    }
+
+    public void RestartGame()
+    {
+        print("Resrtarted");
+        Time.timeScale = 1;
+        SceneManager.LoadScene(2);
     }
 }
