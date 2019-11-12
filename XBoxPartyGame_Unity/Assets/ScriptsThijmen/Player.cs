@@ -148,8 +148,6 @@ public class Player : MonoBehaviour {
         if(!gameObject.activeSelf) {
             targetText.enabled = false;
             playerScoreText.enabled = false;
-            print( "disabled" );
         }
-        print( "entered function" );
     }
 }
