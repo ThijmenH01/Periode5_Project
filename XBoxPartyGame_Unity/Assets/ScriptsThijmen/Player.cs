@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using XInputDotNetPure;
 
 [RequireComponent( typeof( Rigidbody ) )]
 public class Player : MonoBehaviour {
@@ -32,9 +33,11 @@ public class Player : MonoBehaviour {
     private Vector2 moveInput;
     private ColorTile colorTile;
     private string targetColorText;
+    [SerializeField] private XInputVibrateTest vibrate;
 
     private void Start() {
         TargetStateBehavior();
+        vibrate = GetComponent<XInputVibrateTest>();
         //SetUIActive();
     }
 
@@ -140,6 +143,7 @@ public class Player : MonoBehaviour {
     }
 
     private void AddScore(int scoreAddon) {
+        StartCoroutine(vibrate.StartRumble(PlayerIndex.One, 0.30f, 2f));
         playerScore += scoreAddon;
         playerScoreText.text = playerScore.ToString();
     }
