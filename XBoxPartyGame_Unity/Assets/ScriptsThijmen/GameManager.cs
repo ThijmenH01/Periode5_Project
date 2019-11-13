@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
-    
+
     public int m_playerAmountChosen;
+    public bool gameIsOver = false;
+    public GameObject gameOverScreen;
 
     private void Awake() {
         if(instance == null) {
@@ -17,9 +19,17 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && Countdown.instance.stop) RestartGame();
+    private void Update() {
+        if(Input.GetKeyDown( KeyCode.Space ) && Countdown.instance.stop)
+            RestartGame();
+
+        if(Countdown.instance.timeLeft <= 0) {
+            GameFinished();
+        }
+
+        if(Input.GetKeyDown( KeyCode.Escape )) {
+            SceneManager.LoadScene( 0 );
+        }
     }
 
     private void Start() {
@@ -30,15 +40,22 @@ public class GameManager : MonoBehaviour {
         m_playerAmountChosen = playersFromSlider;
     }
 
-    public void GameOver()
-    {
+    public void GameOver() {
         Time.timeScale = 0f;
     }
 
-    public void RestartGame()
-    {
-        print("Resrtarted");
+    public void RestartGame() {
+        print( "Resrtarted" );
         Time.timeScale = 1;
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene( 1 );
+    }
+
+    public void GameFinished() {
+        gameOverScreen.SetActive( true );
+        gameIsOver = true;
+        if(Input.GetKeyDown( KeyCode.Joystick1Button0 ) && gameIsOver) {
+            Time.timeScale = 1;
+            SceneManager.LoadScene( 1 );
+        }
     }
 }
